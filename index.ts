@@ -6,3 +6,7 @@ const sleep = new Promise((resolve, reject) => {
 }) ;
 
 sleep.then(console.log);
+
+import add from './util';
+const value = add(1,2);
+console.log(value);

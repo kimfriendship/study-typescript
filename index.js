@@ -1,6 +1,11 @@
-var hello = 'hello';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const hello = 'hello';
 var world = 'world';
-var sleep = new Promise(function (resolve, reject) {
-    setTimeout(function () { return resolve('1sec'); }, 1000);
+const sleep = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('1sec'), 1000);
 });
 sleep.then(console.log);
+const util_1 = require("./util");
+const value = util_1.default(1, 2);
+console.log(value);
