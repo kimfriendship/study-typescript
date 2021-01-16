@@ -17,3 +17,15 @@ const render = (): void => {
                         <button class="removeBtn">X</button>
                       </li>`).join('');
 };
+
+const generateId = (): number => {
+  const lastId: number = todoData[todoData.length - 1].id;
+  return lastId + 1;
+}
+
+const addTodo = (): void => {
+  const newTodo: ToDo = {id: generateId(), content: input.value, completed: false};
+  todoData.push(newTodo);
+  input.value = '';
+  render();
+}

@@ -216,6 +216,22 @@ var render = function render() {
     return "<li class='todo' id=" + todo.id + ">\n                        <input type=\"checkbox\" class='checkbox' " + (todo.completed ? 'checked' : '') + ">\n                        <span class='" + (todo.completed ? 'completed' : '') + "'>" + todo.content + "</span>\n                        <button class=\"removeBtn\">X</button>\n                      </li>";
   }).join('');
 };
+
+var generateId = function generateId() {
+  var lastId = todoData[todoData.length - 1].id;
+  return lastId + 1;
+};
+
+var addTodo = function addTodo() {
+  var newTodo = {
+    id: generateId(),
+    content: input.value,
+    completed: false
+  };
+  todoData.push(newTodo);
+  input.value = '';
+  render();
+};
 },{"./styles/style.css":"src/styles/style.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
