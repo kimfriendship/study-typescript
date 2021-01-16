@@ -52,6 +52,8 @@ h1 {
   padding: 10px 20px 30px;
   margin-right: 30px;
   border-radius: 10px;
+  overflow: hidden;
+  position: relative;
 }
 
 .todoTitle {
@@ -62,6 +64,7 @@ h1 {
 .list {
   padding: 0;
   flex-grow: 1;
+  overflow-y: scroll;
 }
 
 .checkbox {
@@ -92,7 +95,20 @@ h1 {
   border-radius: 5px;
   border: 1px solid lightgray;
   height: 30px;
+  min-height: 30px;
   padding: 0 10px;
+}
+
+.closeBtn {
+  border-radius: 50%;
+  border: 1px solid gray;
+  width: 30px;
+  height: 30px;
+  padding: 2px 0 0;
+  background: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 
