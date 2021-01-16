@@ -254,8 +254,8 @@ var addTodoByClick = function addTodoByClick() {
 };
 
 var addTodoByEnter = function addTodoByEnter(e) {
-  var key = Number(e.key);
-  if (key !== 13) return;
+  var key = e.key;
+  if (key !== 'Enter' || input.value.trim() === '') return;
   addTodo();
 };
 

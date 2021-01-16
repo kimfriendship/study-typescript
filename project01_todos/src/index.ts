@@ -33,8 +33,8 @@ const addTodo = (): void => {
 const addTodoByClick = (): void => addTodo();
 
 const addTodoByEnter = (e: KeyboardEvent): void => {
-  const key: number = Number(e.key);
-  if (key !== 13) return;
+  const key: string = e.key;
+  if (key !== 'Enter' || (input as HTMLInputElement).value.trim() === '') return;
   addTodo(); 
 }
 
