@@ -192,6 +192,22 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -232,6 +248,31 @@ var addTodo = function addTodo() {
   input.value = '';
   render();
 };
+
+var toggleTodo = function toggleTodo(e) {
+  if (e.target.className !== 'checkbox') return;
+  var id = Number(e.target.parentNode.id);
+  todoData = todoData.map(function (todo) {
+    return todo.id === id ? __assign(__assign({}, todo), {
+      completed: !todo.completed
+    }) : todo;
+  });
+  render();
+};
+
+var removeTodo = function removeTodo(e) {
+  if (e.target.className !== 'removeBtn') return;
+  var id = Number(e.target.parentNode.id);
+  todoData = todoData.filter(function (todo) {
+    return todo.id !== id;
+  });
+  render();
+};
+
+window.onload = render;
+addBtn.addEventListener('click', addTodo);
+todoList.addEventListener('click', toggleTodo);
+todoList.addEventListener('click', removeTodo);
 },{"./styles/style.css":"src/styles/style.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

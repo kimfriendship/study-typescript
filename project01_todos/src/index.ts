@@ -29,3 +29,22 @@ const addTodo = (): void => {
   input.value = '';
   render();
 }
+
+const toggleTodo = (e): void => {
+  if (e.target.className !== 'checkbox') return;
+  const id: number = Number(e.target.parentNode.id);
+  todoData = todoData.map((todo:ToDo) => todo.id === id ? {...todo, completed: !todo.completed} : todo);
+  render();
+};
+
+const removeTodo = (e): void => {
+  if (e.target.className !== 'removeBtn') return;
+  const id: number = Number(e.target.parentNode.id);
+  todoData = todoData.filter((todo:ToDo) => todo.id !== id);
+  render();
+};
+
+window.onload = render;
+addBtn.addEventListener('click', addTodo);
+todoList.addEventListener('click', toggleTodo);
+todoList.addEventListener('click', removeTodo);
