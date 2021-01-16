@@ -197,6 +197,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 require("./styles/style.css");
+
+var todoData = [{
+  id: 0,
+  content: 'typescript',
+  completed: false
+}, {
+  id: 1,
+  content: 'vue',
+  completed: false
+}];
+var input = document.getElementById('input');
+var todoList = document.getElementById('todoList');
+var addBtn = document.querySelector('.addBtn');
+
+var render = function render() {
+  todoList.innerHTML = todoData.map(function (todo) {
+    return "<li class='todo' id=" + todo.id + ">\n                        <input type=\"checkbox\" class='checkbox' " + (todo.completed ? 'checked' : '') + ">\n                        <span class='" + (todo.completed ? 'completed' : '') + "'>" + todo.content + "</span>\n                        <button class=\"removeBtn\">X</button>\n                      </li>";
+  }).join('');
+};
 },{"./styles/style.css":"src/styles/style.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

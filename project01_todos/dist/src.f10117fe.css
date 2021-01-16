@@ -24,15 +24,19 @@ body {
 }
 
 .todo {
-  display: flex;
-  justify-content: space-between;
+  list-style: none;
   border-bottom: 1px solid lightgray;
   margin-bottom: 10px;
+}
+
+.completed {
+  text-decoration: line-through;
 }
 
 .removeBtn {
   border: none;
   background: none;
+  float: right;
 }
 
 
