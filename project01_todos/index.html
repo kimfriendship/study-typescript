@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>ToDos</title>
 </head>
 <body>
-  <script src='./src/index.ts'></script>
+  <div class="container">
+    <h1 class="title">ToDos</h1>
+    <div class="form">
+      <input type="text" id="input"/>
+      <button class="addBtn">ADD</button>
+    </div>
+    <ul id="todoList">
+      <li class='todo'><span>study react</span><button class="removeBtn">X</button></li>
+      <li class='todo'><span>study vue</span><button class="removeBtn">X</button></li>
+    </ul>
+  </div>
+    <script src='./src/index.ts'></script>
 </body>
 </html>

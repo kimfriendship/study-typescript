@@ -1,0 +1,39 @@
+body {
+  background: lavender;
+}
+
+.container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 100px auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.form {
+  margin: 10px 0 30px;
+}
+
+#todoList {
+  width: 50%;
+  padding: 0;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
+}
+
+.removeBtn {
+  border: none;
+  background: none;
+}
+
+
+/*# sourceMappingURL=/src.f10117fe.css.map */
