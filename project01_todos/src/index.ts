@@ -24,29 +24,32 @@ const generateId = (): number => {
 }
 
 const addTodo = (): void => {
-  const newTodo: ToDo = {id: generateId(), content: input.value, completed: false};
+  const newTodo: ToDo = {id: generateId(), content: (input as HTMLInputElement).value, completed: false};
   todoData.push(newTodo);
-  input.value = '';
+  (input as HTMLInputElement).value = '';
   render();  
 }
 
 const addTodoByClick = (): void => addTodo();
 
-const addTodoByEnter = (e): void => {
-  if (e.keyCode !== 13) return;
+const addTodoByEnter = (e: KeyboardEvent): void => {
+  const key: number = Number(e.key);
+  if (key !== 13) return;
   addTodo(); 
 }
 
-const toggleTodo = (e): void => {
-  if (e.target.className !== 'checkbox') return;
-  const id: number = Number(e.target.parentNode.id);
+const toggleTodo = (e: MouseEvent): void => {
+  const target = e.target as Element;
+  if (target.className !== 'checkbox') return;
+  const id: number = Number((target.parentNode as Element).id);
   todoData = todoData.map((todo:ToDo) => todo.id === id ? {...todo, completed: !todo.completed} : todo);
   render();
 };
 
-const removeTodo = (e): void => {
-  if (e.target.className !== 'removeBtn') return;
-  const id: number = Number(e.target.parentNode.id);
+const removeTodo = (e: MouseEvent): void => {
+  const target = e.target as Element;
+  if (target.className !== 'removeBtn') return;
+  const id: number = Number((target.parentNode as Element).id);
   todoData = todoData.filter((todo:ToDo) => todo.id !== id);
   render();
 };

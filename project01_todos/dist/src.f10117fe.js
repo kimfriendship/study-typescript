@@ -254,13 +254,15 @@ var addTodoByClick = function addTodoByClick() {
 };
 
 var addTodoByEnter = function addTodoByEnter(e) {
-  if (e.keyCode !== 13) return;
+  var key = Number(e.key);
+  if (key !== 13) return;
   addTodo();
 };
 
 var toggleTodo = function toggleTodo(e) {
-  if (e.target.className !== 'checkbox') return;
-  var id = Number(e.target.parentNode.id);
+  var target = e.target;
+  if (target.className !== 'checkbox') return;
+  var id = Number(target.parentNode.id);
   todoData = todoData.map(function (todo) {
     return todo.id === id ? __assign(__assign({}, todo), {
       completed: !todo.completed
@@ -270,8 +272,9 @@ var toggleTodo = function toggleTodo(e) {
 };
 
 var removeTodo = function removeTodo(e) {
-  if (e.target.className !== 'removeBtn') return;
-  var id = Number(e.target.parentNode.id);
+  var target = e.target;
+  if (target.className !== 'removeBtn') return;
+  var id = Number(target.parentNode.id);
   todoData = todoData.filter(function (todo) {
     return todo.id !== id;
   });
