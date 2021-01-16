@@ -249,6 +249,15 @@ var addTodo = function addTodo() {
   render();
 };
 
+var addTodoByClick = function addTodoByClick() {
+  return addTodo();
+};
+
+var addTodoByEnter = function addTodoByEnter(e) {
+  if (e.keyCode !== 13) return;
+  addTodo();
+};
+
 var toggleTodo = function toggleTodo(e) {
   if (e.target.className !== 'checkbox') return;
   var id = Number(e.target.parentNode.id);
@@ -270,7 +279,8 @@ var removeTodo = function removeTodo(e) {
 };
 
 window.onload = render;
-addBtn.addEventListener('click', addTodo);
+input.addEventListener('keyup', addTodoByEnter);
+addBtn.addEventListener('click', addTodoByClick);
 todoList.addEventListener('click', toggleTodo);
 todoList.addEventListener('click', removeTodo);
 },{"./styles/style.css":"src/styles/style.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {

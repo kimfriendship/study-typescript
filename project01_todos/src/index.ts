@@ -27,7 +27,14 @@ const addTodo = (): void => {
   const newTodo: ToDo = {id: generateId(), content: input.value, completed: false};
   todoData.push(newTodo);
   input.value = '';
-  render();
+  render();  
+}
+
+const addTodoByClick = (): void => addTodo();
+
+const addTodoByEnter = (e): void => {
+  if (e.keyCode !== 13) return;
+  addTodo(); 
 }
 
 const toggleTodo = (e): void => {
@@ -45,6 +52,7 @@ const removeTodo = (e): void => {
 };
 
 window.onload = render;
-addBtn.addEventListener('click', addTodo);
+input.addEventListener('keyup', addTodoByEnter);
+addBtn.addEventListener('click', addTodoByClick);
 todoList.addEventListener('click', toggleTodo);
 todoList.addEventListener('click', removeTodo);
