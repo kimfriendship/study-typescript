@@ -1,3 +1,15 @@
+export interface TodoCreator {
+  todo: HTMLElement;
+  toggleTodo();
+  removeTodo();
+}
+
+export interface TodoListCreator {
+  todoList: HTMLElement;
+  addTodo();
+  removeList();
+}
+
 export interface Todo {
   id: number;
   content: string;

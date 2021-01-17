@@ -189,7 +189,45 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.ts":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/Todo.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CreateTodo = void 0;
+
+var CreateTodo =
+/** @class */
+function () {
+  function CreateTodo(id, content, isDone) {
+    this.id = id;
+    this.content = content;
+    this.isDone = isDone;
+    this.todo = document.createElement('li');
+    this.todo.innerHTML = "<input type=\"checkbox\" class=\"checkbox\" " + (isDone ? 'checked' : '') + ">\n                          <span class='" + (isDone ? 'isDone' : '') + "'>" + content + "</span>\n                          <button class=\"removeBtn\"></button>";
+    this.todo.className = 'item'; // this.todo.children.filter((child: HTMLElement) => console.log(child.nodeName));
+
+    console.log(this.todo.children);
+  }
+
+  CreateTodo.prototype.toggleTodo = function () {
+    console.log('toggleTodo');
+  };
+
+  CreateTodo.prototype.removeTodo = function () {
+    console.log('removeTodo');
+  };
+
+  CreateTodo.prototype.render = function (parentNode) {
+    parentNode.appendChild(this.todo);
+  };
+
+  return CreateTodo;
+}();
+
+exports.CreateTodo = CreateTodo;
+},{}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -197,7 +235,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 require("./styles/style.css");
-},{"./styles/style.css":"src/styles/style.css"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var Todo_1 = require("./Todo");
+
+var trello = document.querySelector('.list');
+var todo = new Todo_1.CreateTodo(3, 'hi', false);
+todo.render(trello);
+},{"./styles/style.css":"src/styles/style.css","./Todo":"src/Todo.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
