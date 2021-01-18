@@ -4,7 +4,7 @@ export interface TodoCreator {
 }
 
 export interface TodoListCreator {
-  todoList: HTMLElement;
+  list: Todo[];
   addTodo();
   removeList();
 }

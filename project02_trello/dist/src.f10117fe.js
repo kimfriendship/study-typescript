@@ -189,40 +189,21 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/TodoList.ts":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/util.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CreateTodoList = void 0;
+exports.generateId = void 0;
 
-var CreateTodoList =
-/** @class */
-function () {
-  // listId: number = generateId(trelloData);
-  function CreateTodoList(listId, title) {
-    this.listId = listId;
-    this.title = title;
-  }
+var generateId = function generateId(data) {
+  var lastData = data[data.length - 1];
+  if (lastData && data[0].listId >= 0) return lastData.listId + 1;
+  if (lastData && data[0].id >= 0) return lastData.id + 1;else return 0;
+};
 
-  CreateTodoList.prototype.addTodo = function () {
-    throw new Error('Method not implemented.');
-  };
-
-  CreateTodoList.prototype.removeList = function () {
-    throw new Error('Method not implemented.');
-  };
-
-  CreateTodoList.prototype.render = function () {
-    var innerHtml = "<div class=\"todo\" id='" + this.listId + "'>\n        <h2 class=\"todoTitle\">" + this.title + "</h2>\n        <ul class=\"list\"></ul>\n        <input type=\"text\" class=\"newItemInput\" placeholder=\"New Todo\">\n        <button class=\"closeBtn\"></button>\n    </div>";
-    return innerHtml;
-  };
-
-  return CreateTodoList;
-}();
-
-exports.CreateTodoList = CreateTodoList;
+exports.generateId = generateId;
 },{}],"src/data.ts":[function(require,module,exports) {
 "use strict";
 
@@ -252,15 +233,15 @@ exports.trelloData = [{
   list: [{
     id: 0,
     content: 'watch movie',
-    isDone: false
-  }, {
-    id: 1,
-    content: 'make snowman',
     isDone: true
   }, {
     id: 2,
     content: 'go to sleep',
     isDone: false
+  }, {
+    id: 1,
+    content: 'make snowman',
+    isDone: true
   }]
 }];
 },{}],"src/index.ts":[function(require,module,exports) {
@@ -272,23 +253,74 @@ Object.defineProperty(exports, "__esModule", {
 
 require("./styles/style.css");
 
-var TodoList_1 = require("./TodoList");
+var util_1 = require("./util");
 
 var data_1 = require("./data");
 
 var trello = document.querySelector('.container');
+var todoTitleInput = document.querySelector('.todoTitleInput');
+var addTodoListBtn = document.querySelector('.addBtn');
 
-var getData = function getData() {
-  var trelloHtml = '';
-  data_1.trelloData.forEach(function (data) {
-    var newTodoList = new TodoList_1.CreateTodoList(data.listId, data.title);
-    trelloHtml += newTodoList.render();
+var addTodo = function addTodo(e) {
+  if (e.key !== 'Enter') return;
+  var target = e.target;
+  var value = target.value;
+  var listId = Number(target.parentNode.id);
+  var todoData = data_1.trelloData.filter(function (data) {
+    return data.listId === listId;
+  })[0].list;
+  var id = util_1.generateId(todoData);
+  todoData.push({
+    id: id,
+    content: value,
+    isDone: false
   });
-  trello.innerHTML = trelloHtml;
+  render();
 };
 
-window.onload = getData;
-},{"./styles/style.css":"src/styles/style.css","./TodoList":"src/TodoList.ts","./data":"src/data.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var addTodoList = function addTodoList() {
+  var listId = util_1.generateId(data_1.trelloData);
+  var title = todoTitleInput.value;
+  data_1.trelloData.push({
+    listId: listId,
+    title: title,
+    list: []
+  });
+  todoTitleInput.value = '';
+  render();
+};
+
+var removeTodoList = function removeTodoList(e) {
+  var target = e.target;
+  if (target.className !== 'closeBtn') return;
+  var listId = Number(target.parentNode.id);
+  data_1.trelloData = data_1.trelloData.filter(function (data) {
+    return data.listId !== listId;
+  });
+  render();
+};
+
+var render = function render() {
+  var innerHTML = '';
+  data_1.trelloData.forEach(function (data) {
+    return innerHTML += "<div class=\"todo\" id='" + data.listId + "'>\n  <h2 class=\"todoTitle\">" + data.title + "</h2>\n  <ul class=\"list\">\n    " + data.list.map(function (todo) {
+      return "<li class='item' id='todo-" + todo.id + "'>\n      <input type=\"checkbox\" class=\"checkbox\" " + (todo.isDone ? 'checked' : '') + ">\n      <span class='" + (todo.isDone ? 'isDone' : '') + "'>" + todo.content + "</span>\n      <button class=\"removeBtn\"></button>\n    </li>";
+    }).join('') + "\n  </ul>\n  <input type=\"text\" class=\"newItemInput\" placeholder=\"New Todo\">\n  <button class=\"closeBtn\"></button>\n  </div>";
+  });
+  trello.innerHTML = innerHTML;
+  var inputs = document.querySelectorAll('.newItemInput');
+  inputs.forEach(function (input) {
+    return input.onkeyup = function (e) {
+      return addTodo(e);
+    };
+  });
+  console.log(data_1.trelloData);
+};
+
+window.onload = render;
+addTodoListBtn.onclick = addTodoList;
+trello.addEventListener('click', removeTodoList);
+},{"./styles/style.css":"src/styles/style.css","./util":"src/util.ts","./data":"src/data.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

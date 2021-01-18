@@ -1,6 +1,6 @@
 import {TodoList} from './interface'
 
-export const trelloData: TodoList[] = [
+export let trelloData: TodoList[] = [
   {
     listId: 0,
     title: 'study',
@@ -14,9 +14,9 @@ export const trelloData: TodoList[] = [
     listId: 1,
     title: 'play',
     list: [
-      {id: 0, content: 'watch movie', isDone: false},
-      {id: 1, content: 'make snowman', isDone: true},
+      {id: 0, content: 'watch movie', isDone: true},
       {id: 2, content: 'go to sleep', isDone: false},
+      {id: 1, content: 'make snowman', isDone: true},
     ]
   }
 ];
