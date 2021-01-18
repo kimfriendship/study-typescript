@@ -1,31 +1,22 @@
-import {Todo, TodoListCreator, TodoCreator} from './interface'
+import {TodoList, TodoCreator} from './interface'
 import {generateId} from './util'
 import {trelloData} from './data'
 
 export class CreateTodo implements TodoCreator {
-  todo: HTMLElement = document.createElement('li');
+  readonly id: number;
 
-  constructor(readonly id: number, readonly content: string, public isDone: boolean) {
-    this.todo.innerHTML = `<input type="checkbox" class="checkbox" ${isDone ? 'checked' : ''}>
-                          <span class='${isDone ? 'isDone' : ''}'>${content}</span>
-                          <button class="removeBtn"></button>`;
+  constructor(readonly listId: number, readonly content: string, public isDone: boolean) {
+    this.id = generateId(trelloData.filter((list: TodoList) => list.listId === listId))
+  }
+
+  render() {
+    const innerHtml = 
+      `<li class='item' id=${this.id}>
+        <input type="checkbox" class="checkbox" ${this.isDone ? 'checked' : ''}>
+        <span class='${this.isDone ? 'isDone' : ''}'>${this.content}</span>
+        <button class="removeBtn"></button>
+      </li>`;
     
-    this.todo.className = 'item';
-    // this.todo.children.filter((child: HTMLElement) => console.log(child.nodeName));
-    console.log(this.todo.children)
-
-  }
-
-  toggleTodo() {
-
-    console.log('toggleTodo');
-  }
-
-  removeTodo() {
-    console.log('removeTodo');
-  }
-
-  render(parentNode: HTMLElement) {
-    parentNode.appendChild(this.todo);
+    return innerHtml;
   }
 }

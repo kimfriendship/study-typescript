@@ -1,7 +1,6 @@
 export interface TodoCreator {
-  todo: HTMLElement;
-  toggleTodo();
-  removeTodo();
+  id: number;
+  render(): string;
 }
 
 export interface TodoListCreator {
@@ -17,7 +16,7 @@ export interface Todo {
 }
 
 export interface TodoList {
-  id: number; 
+  listId: number; 
   title: string;
   list: Todo[];
 }

@@ -189,44 +189,80 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/Todo.ts":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/TodoList.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CreateTodo = void 0;
+exports.CreateTodoList = void 0;
 
-var CreateTodo =
+var CreateTodoList =
 /** @class */
 function () {
-  function CreateTodo(id, content, isDone) {
-    this.id = id;
-    this.content = content;
-    this.isDone = isDone;
-    this.todo = document.createElement('li');
-    this.todo.innerHTML = "<input type=\"checkbox\" class=\"checkbox\" " + (isDone ? 'checked' : '') + ">\n                          <span class='" + (isDone ? 'isDone' : '') + "'>" + content + "</span>\n                          <button class=\"removeBtn\"></button>";
-    this.todo.className = 'item'; // this.todo.children.filter((child: HTMLElement) => console.log(child.nodeName));
-
-    console.log(this.todo.children);
+  // listId: number = generateId(trelloData);
+  function CreateTodoList(listId, title) {
+    this.listId = listId;
+    this.title = title;
   }
 
-  CreateTodo.prototype.toggleTodo = function () {
-    console.log('toggleTodo');
+  CreateTodoList.prototype.addTodo = function () {
+    throw new Error('Method not implemented.');
   };
 
-  CreateTodo.prototype.removeTodo = function () {
-    console.log('removeTodo');
+  CreateTodoList.prototype.removeList = function () {
+    throw new Error('Method not implemented.');
   };
 
-  CreateTodo.prototype.render = function (parentNode) {
-    parentNode.appendChild(this.todo);
+  CreateTodoList.prototype.render = function () {
+    var innerHtml = "<div class=\"todo\" id='" + this.listId + "'>\n        <h2 class=\"todoTitle\">" + this.title + "</h2>\n        <ul class=\"list\"></ul>\n        <input type=\"text\" class=\"newItemInput\" placeholder=\"New Todo\">\n        <button class=\"closeBtn\"></button>\n    </div>";
+    return innerHtml;
   };
 
-  return CreateTodo;
+  return CreateTodoList;
 }();
 
-exports.CreateTodo = CreateTodo;
+exports.CreateTodoList = CreateTodoList;
+},{}],"src/data.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.trelloData = void 0;
+exports.trelloData = [{
+  listId: 0,
+  title: 'study',
+  list: [{
+    id: 0,
+    content: 'vue',
+    isDone: false
+  }, {
+    id: 1,
+    content: 'react',
+    isDone: true
+  }, {
+    id: 2,
+    content: 'typescript',
+    isDone: false
+  }]
+}, {
+  listId: 1,
+  title: 'play',
+  list: [{
+    id: 0,
+    content: 'watch movie',
+    isDone: false
+  }, {
+    id: 1,
+    content: 'make snowman',
+    isDone: true
+  }, {
+    id: 2,
+    content: 'go to sleep',
+    isDone: false
+  }]
+}];
 },{}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
@@ -236,12 +272,23 @@ Object.defineProperty(exports, "__esModule", {
 
 require("./styles/style.css");
 
-var Todo_1 = require("./Todo");
+var TodoList_1 = require("./TodoList");
 
-var trello = document.querySelector('.list');
-var todo = new Todo_1.CreateTodo(3, 'hi', false);
-todo.render(trello);
-},{"./styles/style.css":"src/styles/style.css","./Todo":"src/Todo.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var data_1 = require("./data");
+
+var trello = document.querySelector('.container');
+
+var getData = function getData() {
+  var trelloHtml = '';
+  data_1.trelloData.forEach(function (data) {
+    var newTodoList = new TodoList_1.CreateTodoList(data.listId, data.title);
+    trelloHtml += newTodoList.render();
+  });
+  trello.innerHTML = trelloHtml;
+};
+
+window.onload = getData;
+},{"./styles/style.css":"src/styles/style.css","./TodoList":"src/TodoList.ts","./data":"src/data.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

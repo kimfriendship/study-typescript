@@ -2,7 +2,7 @@ import {TodoList} from './interface'
 
 export const trelloData: TodoList[] = [
   {
-    id: 0,
+    listId: 0,
     title: 'study',
     list: [
       {id: 0, content: 'vue', isDone: false},
@@ -11,7 +11,7 @@ export const trelloData: TodoList[] = [
     ]
   },
   {
-    id: 1,
+    listId: 1,
     title: 'play',
     list: [
       {id: 0, content: 'watch movie', isDone: false},
